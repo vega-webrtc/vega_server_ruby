@@ -2,6 +2,8 @@
 
 A WebSocket server that implements the [Vega protocol](https://gist.github.com/davejachimiak/34f7bc4a9896fe72979e).
 
+[![Build Status](https://travis-ci.org/davejachimiak/vega_server.svg?branch=master)](https://travis-ci.org/davejachimiak/vega_server)
+
 ## Installation
 
 Add this line to your application's Gemfile:
