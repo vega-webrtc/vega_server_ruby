@@ -1,4 +1,9 @@
 require 'vega_server/outgoing_messages/client_messageable'
+
+require 'vega_server/outgoing_messages/offer'
+require 'vega_server/outgoing_messages/answer'
+require 'vega_server/outgoing_messages/candidate'
+require 'vega_server/outgoing_messages/peer_hang_up'
 require 'vega_server/outgoing_messages/call_accepted'
 
 module VegaServer

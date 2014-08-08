@@ -1,4 +1,5 @@
 require 'vega_server/version'
+require 'vega_server/json'
 require 'vega_server/server'
 require 'vega_server/adapters'
 require 'vega_server/storage'

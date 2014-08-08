@@ -1,5 +1,3 @@
-require 'vega_server/outgoing_messages/answer'
-
 module VegaServer::IncomingMessages
   class Answer
     include Relayable

@@ -1,5 +1,3 @@
-require 'vega_server/storageable'
-
 module VegaServer::IncomingMessages
   module Relayable
     include VegaServer::Storageable

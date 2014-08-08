@@ -1,6 +1,3 @@
-require 'vega_server/outgoing_messages'
-require 'vega_server/storageable'
-
 module VegaServer::IncomingMessages
   class Call
     include VegaServer::Storageable

@@ -1,5 +1,3 @@
-require 'vega_server/outgoing_messages/candidate'
-
 module VegaServer::IncomingMessages
   class Candidate
     include Relayable

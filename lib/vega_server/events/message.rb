@@ -1,5 +1,4 @@
 require 'vega_server/incoming_messages'
-require 'vega_server/json'
 
 module VegaServer::Events
   class Message

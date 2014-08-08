@@ -1,6 +1,3 @@
-require 'vega_server/cleanable'
-require 'vega_server/outgoing_messages/peer_hang_up'
-
 module VegaServer::IncomingMessages
   class HangUp
     include VegaServer::Cleanable

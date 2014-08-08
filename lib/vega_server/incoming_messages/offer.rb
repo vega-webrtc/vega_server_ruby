@@ -1,5 +1,3 @@
-require 'vega_server/outgoing_messages/offer'
-
 module VegaServer::IncomingMessages
   class Offer
     include Relayable
