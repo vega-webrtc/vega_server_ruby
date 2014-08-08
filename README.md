@@ -1,6 +1,6 @@
 # VegaServer
 
-A WebSocket server that implements the [Vega protocol](https://gist.github.com/davejachimiak/34f7bc4a9896fe72979e).
+A drop-in server for WebRTC signaling. Use with [VegaClient](https://github.com/davejachimiak/vega_client).
 
 [![Build Status](https://travis-ci.org/davejachimiak/vega_server.svg?branch=master)](https://travis-ci.org/davejachimiak/vega_server)
 
