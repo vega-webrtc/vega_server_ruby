@@ -6,7 +6,7 @@ VegaServer::HandshakeSteps = RSpec::EM.async_steps do
   def assert_socket_open(client, &callback)
     EM.add_timer 0.1 do
       open = instance_variable_get "@#{client}_open"
-      expect(open).to be_true
+      expect(open).to be true
       EM.next_tick(&callback)
     end
   end
@@ -14,7 +14,7 @@ VegaServer::HandshakeSteps = RSpec::EM.async_steps do
   def assert_socket_closed(client, &callback)
     EM.add_timer 0.1 do
       open = instance_variable_get "@#{client}_open"
-      expect(open).to be_false
+      expect(open).to be false
       EM.next_tick(&callback)
     end
   end

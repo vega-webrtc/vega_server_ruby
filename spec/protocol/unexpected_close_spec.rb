@@ -14,7 +14,7 @@ describe 'unexpected close' do
   let(:room_id) { '/chat/abc123' }
   let(:badge) { {} }
   let(:response) do
-    MultiJson.dump({ type: 'unexpectedPeerHangUp', payload: response_payload })
+    MultiJson.dump({ type: 'peerHangUp', payload: response_payload })
   end
   let(:response_payload) { { peerId: client_1 } }
 
