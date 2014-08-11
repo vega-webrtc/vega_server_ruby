@@ -38,7 +38,7 @@ describe 'call message is received' do
   context 'room is empty' do
     let(:response) do
       MultiJson.dump({ type: 'callAccepted',
-                       payload: { peerIds: [] } })
+                       payload: { peers: [] } })
     end
 
     it_should_behave_like 'successful call message'
@@ -51,23 +51,27 @@ describe 'call message is received' do
   end
 
   context 'room is not empty' do
-    let(:client_id1) { '4d3d3d3d' }
-    let(:client_id2) { 'tayne' }
-    let(:other_badge) { {} }
-    let(:client_info) { { badge: other_badge, room_id: room_id } }
+    let(:client1_id) { '4d3d3d3d' }
+    let(:client2_id) { 'tayne' }
+    let(:client1_badge) { { name: 'celery man' } }
+    let(:client2_badge) { { name: 'enter tain ya' } }
+    let(:client1) { { peer_id: client1_id, badge: client1_badge } }
+    let(:client2) { { peer_id: client2_id, badge: client2_badge } }
+    let(:client1_info) { { badge: client1_badge, room_id: room_id } }
+    let(:client2_info) { { badge: client2_badge, room_id: room_id } }
     let(:response) do
       MultiJson.dump({ type: 'callAccepted',
-                       payload: { peerIds: [client_id1, client_id2] } })
+                       payload: { peers: [client1, client2] } })
     end
 
     before do
-      add_to_room(client_id1, client_info)
-      add_to_room(client_id2, client_info)
+      add_to_room(client1_id, client1_info)
+      add_to_room(client2_id, client2_info)
     end
 
     it_should_behave_like 'successful call message'
 
-    it 'sends a callAccepted response with the peer ids' do
+    it 'sends a callAccepted response with the peers' do
       add_listener(client)
       send_message(client, message)
       assert_response(client, response)
@@ -78,7 +82,7 @@ describe 'call message is received' do
     let(:payload) { { badge: badge } }
     let(:response) do
       MultiJson.dump({ type: 'callAccepted',
-                       payload: { peerIds: [] } })
+                       payload: { peers: [] } })
     end
     
     it 'ignores the message' do

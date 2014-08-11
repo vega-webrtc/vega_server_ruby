@@ -2,8 +2,8 @@ module VegaServer::OutgoingMessages
   class CallAccepted
     include ClientMessageable
 
-    def initialize(peer_ids)
-      @peer_ids = peer_ids
+    def initialize(peers)
+      @peers = peers
     end
 
     def type
@@ -11,7 +11,7 @@ module VegaServer::OutgoingMessages
     end
 
     def payload
-      { peerIds: @peer_ids }
+      { peers: @peers }
     end
   end
 end

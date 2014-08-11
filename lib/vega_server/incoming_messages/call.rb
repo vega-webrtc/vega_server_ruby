@@ -18,7 +18,15 @@ module VegaServer::IncomingMessages
     private
 
     def message
-      VegaServer::OutgoingMessages::CallAccepted.new(peer_ids)
+      VegaServer::OutgoingMessages::CallAccepted.new(peers)
+    end
+
+    def peers
+      peer_ids.map do |peer_id|
+        peer = storage.client(peer_id)
+
+        { peer_id: peer_id, badge: peer[:badge] }
+      end
     end
 
     def peer_ids

@@ -40,25 +40,27 @@ module VegaServer
         clients[client_id]
       end
 
-      private
+      def self.storage
+        @storage ||= {}
+      end
+      private_class_method :storage
 
       def self.client_room_id(client_id)
         if client = client(client_id)
           client[:room_id]
         end
       end
+      private_class_method :client_room_id
 
       def self.clients
         storage[CLIENTS] ||= {}
       end
+      private_class_method :clients
 
       def self.rooms
         storage[ROOMS] ||= {}
       end
-
-      def self.storage
-        @storage ||= {}
-      end
+      private_class_method :rooms
     end
   end
 end
