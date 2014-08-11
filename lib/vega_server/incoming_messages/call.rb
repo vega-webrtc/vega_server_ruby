@@ -23,9 +23,10 @@ module VegaServer::IncomingMessages
 
     def peers
       peer_ids.map do |peer_id|
-        peer = storage.client(peer_id)
+        peer  = storage.client(peer_id)
+        badge = peer[:badge] || {}
 
-        { peer_id: peer_id, badge: peer[:badge] }
+        { peer_id: peer_id, badge: badge }
       end
     end
 
