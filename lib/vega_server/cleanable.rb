@@ -49,12 +49,8 @@ module VegaServer
       @websocket = nil
     end
 
-    def outgoing_message_class
-      raise NotImplementedError
-    end
-
     def message
-      outgoing_message_class.new(client_id)
+      VegaServer::OutgoingMessages::PeerHangUp.new(client_id)
     end
   end
 end

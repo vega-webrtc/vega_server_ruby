@@ -5,10 +5,6 @@ module VegaServer::Events
   class Close
     include VegaServer::Cleanable
 
-    def outgoing_message_class
-      VegaServer::OutgoingMessages::PeerHangUp
-    end
-
     def self.handle(websocket, event)
       new(websocket).handle
     end
