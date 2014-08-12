@@ -21,7 +21,7 @@ describe 'answer message' do
   let(:response) do
     MultiJson.dump({ type: 'answer', payload: response_payload })
   end
-  let(:response_payload) { { answer: answer, peerId: client_1, peerBadge: badge } }
+  let(:response_payload) { { answer: answer, peerId: client_1 } }
   let(:answer) { { some: :stuff } }
 
   before do
