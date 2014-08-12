@@ -11,8 +11,8 @@ module VegaServer::IncomingMessages
 
     def handle
       return unless @room_id
-      VegaServer::OutgoingMessages.send_message(@websocket, message)
       add_client_to_room
+      VegaServer::OutgoingMessages.send_message(@websocket, message)
     end
 
     private

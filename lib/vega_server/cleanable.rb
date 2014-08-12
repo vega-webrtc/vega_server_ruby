@@ -43,6 +43,7 @@ module VegaServer
     end
 
     def after_remove_client
+      # no-op
     end
 
     def dispense_websocket
