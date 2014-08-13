@@ -26,7 +26,7 @@ module VegaServer
 
       def self.remove_client(client_id)
         client_room_id = client_room_ids.delete(client_id)
-        client_room    = room(client_room_id)
+        client_room    = writable_room(client_room_id)
 
         client_room.delete_if do |client|
           client[:client_id] == client_id
@@ -38,12 +38,17 @@ module VegaServer
       end
 
       def self.room(room_id)
-        rooms[room_id] || []
+        writable_room(room_id).map(&:dup)
       end
 
       def self.badge(client_id)
         client_badges[client_id]
       end
+
+      def self.writable_room(room_id)
+        rooms[room_id] || []
+      end
+      private_class_method :writable_room
 
       def self.storage
         @storage ||= {}
