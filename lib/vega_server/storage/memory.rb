@@ -5,13 +5,9 @@ module VegaServer
       CLIENT_BADGES   = :client_badges.freeze
       CLIENT_ROOM_IDS = :client_room_ids.freeze
 
-      # rooms : hash of roomIds that point to an array of clients, which contain client id and badge
-      # client_badges : hash of clientId => badge pairs
-      # client_room_ids : hash of clientId => roomId pairs
-
       def self.add_to_room(client_id, client_info)
         client_info = client_info.merge(client_id: client_id)
-        room_id = client_info.delete(:room_id)
+        room_id     = client_info.delete(:room_id)
 
         client_badges[client_id]   = client_info[:badge]
         client_room_ids[client_id] = room_id
@@ -29,16 +25,15 @@ module VegaServer
       end
 
       def self.remove_client(client_id)
-        client_room(client_id).delete_if do |client|
+        client_room_id = client_room_ids.delete(client_id)
+        client_room    = room(client_room_id)
+
+        client_room.delete_if do |client|
           client[:client_id] == client_id
         end
 
-        if client_room(client_id).empty?
-          room_id = client_room_id(client_id)
-          rooms.delete(room_id)
-        end
+        rooms.delete(client_room_id) if client_room.empty?
 
-        client_room_ids.delete(client_id)
         client_badges.delete(client_id)
       end
 
