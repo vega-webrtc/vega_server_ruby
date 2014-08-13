@@ -55,8 +55,8 @@ describe 'call message is received' do
     let(:client2_id) { 'tayne' }
     let(:client1_badge) { { name: 'celery man' } }
     let(:client2_badge) { { name: 'enter tain ya' } }
-    let(:client1) { { peer_id: client1_id, badge: client1_badge } }
-    let(:client2) { { peer_id: client2_id, badge: client2_badge } }
+    let(:client1) { { badge: client1_badge, peer_id: client1_id } }
+    let(:client2) { { badge: client2_badge, peer_id: client2_id } }
     let(:client1_info) { { badge: client1_badge, room_id: room_id } }
     let(:client2_info) { { badge: client2_badge, room_id: room_id } }
     let(:response) do

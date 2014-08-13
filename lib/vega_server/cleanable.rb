@@ -24,9 +24,11 @@ module VegaServer
     end
 
     def room_peer_websockets
-      room.reject do |key|
-        key == client_id
-      end.map { |id| pool[id] }
+      room.reject do |client|
+        client[:client_id] == client_id
+      end.map do |client|
+        pool[client[:client_id]]
+      end
     end
 
     def room

@@ -19,7 +19,7 @@ module VegaServer::OutgoingMessages
     private
 
     def peer_badge
-      storage.client(@peer_id)[:badge]
+      storage.badge(@peer_id)
     end
   end
 end

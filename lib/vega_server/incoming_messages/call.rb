@@ -22,20 +22,17 @@ module VegaServer::IncomingMessages
     end
 
     def peers
-      peer_ids.map do |peer_id|
-        peer  = storage.client(peer_id)
-        badge = peer[:badge] || {}
+      room.reject do |client|
+        client[:client_id] == @client_id
+      end.map do |peer|
+        peer = peer.dup
 
-        { peer_id: peer_id, badge: badge }
+        peer.tap { |p| p[:peer_id] = p.delete(:client_id) }
       end
     end
 
-    def peer_ids
-      room.reject { |client_id| client_id == @client_id }
-    end
-
     def room
-      @room ||= storage.room(@room_id)
+      storage.room(@room_id)
     end
 
     def add_client_to_room
