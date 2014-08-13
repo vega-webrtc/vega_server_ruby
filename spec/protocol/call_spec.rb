@@ -65,8 +65,8 @@ describe 'call message is received' do
     end
 
     before do
-      add_to_room(client1_id, client1_info)
-      add_to_room(client2_id, client2_info)
+      add_to_storage(client1_id, client1_info)
+      add_to_storage(client2_id, client2_info)
     end
 
     it_should_behave_like 'successful call message'

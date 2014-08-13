@@ -1,10 +1,10 @@
 VegaServer::MessageSteps = RSpec::EM.async_steps do
   include VegaServer::SetupTeardownSteps
 
-  def add_to_room(client_id, client_info, &callback)
+  def add_to_storage(client_id, client_info, &callback)
     EM.next_tick do
       storage = VegaServer.storage
-      storage.add_to_room(client_id, client_info)
+      storage.add!(client_id, client_info)
     end
 
     EM.next_tick(&callback)

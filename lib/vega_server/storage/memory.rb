@@ -5,7 +5,7 @@ module VegaServer
       CLIENT_BADGES   = :client_badges.freeze
       CLIENT_ROOM_IDS = :client_room_ids.freeze
 
-      def self.add_to_room(client_id, client_info)
+      def self.add!(client_id, client_info)
         client_info = client_info.merge(client_id: client_id)
         room_id     = client_info.delete(:room_id)
 

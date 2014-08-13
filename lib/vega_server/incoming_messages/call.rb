@@ -11,7 +11,7 @@ module VegaServer::IncomingMessages
 
     def handle
       return unless @room_id
-      add_client_to_room
+      add_client_to_storage
       VegaServer::OutgoingMessages.send_message(@websocket, message)
     end
 
@@ -33,8 +33,8 @@ module VegaServer::IncomingMessages
       storage.room(@room_id)
     end
 
-    def add_client_to_room
-      storage.add_to_room(@client_id, @payload)
+    def add_client_to_storage
+      storage.add!(@client_id, @payload)
     end
   end
 end
