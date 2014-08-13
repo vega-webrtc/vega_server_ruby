@@ -24,7 +24,7 @@ module VegaServer
         end
       end
 
-      def self.remove_client(client_id)
+      def self.remove_client!(client_id)
         client_room_id = client_room_ids.delete(client_id)
         client_room    = writable_room(client_room_id)
 

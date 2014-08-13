@@ -40,7 +40,7 @@ module VegaServer
     end
 
     def remove_client
-      storage.remove_client(client_id)
+      storage.remove_client!(client_id)
       pool.delete(client_id)
     end
 
