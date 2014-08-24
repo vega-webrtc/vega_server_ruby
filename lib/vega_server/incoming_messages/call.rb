@@ -25,7 +25,7 @@ module VegaServer::IncomingMessages
       room.reject do |client|
         client[:client_id] == @client_id
       end.map do |peer|
-        peer.tap { |p| p[:peer_id] = p.delete(:client_id) }
+        peer.tap { |p| p[:peerId] = p.delete(:client_id) }
       end
     end
 
