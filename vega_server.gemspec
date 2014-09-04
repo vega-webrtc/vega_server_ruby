@@ -8,10 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = VegaServer::VERSION
   spec.authors       = ["Dave Jachimiak"]
   spec.email         = ["dave.jachimiak@gmail.com"]
-  spec.description   = %q{VegaServer is a server-side implementation of the Vega protocol.}
-  spec.summary       = %q{VegaServer is a server-side implementation of the Vega protocol.
-                          The Vega protocol is a way to send preliminary messages for WebRTC
-                          peer connections. The protocol and this server are works in progress.}
+  spec.description   = %q{VegaServer is a drop-in WebRTC signaling server.}
   spec.homepage      = "https://github.com/davejachimiak/vega_server"
   spec.license       = "MIT"
 
