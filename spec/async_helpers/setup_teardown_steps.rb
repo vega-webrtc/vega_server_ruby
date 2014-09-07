@@ -1,11 +1,11 @@
 VegaServer::SetupTeardownSteps = RSpec::EM.async_steps do
-  def enable_modified_event(&callback)
-    EM.next_tick { VegaServer.enable_modified_event! }
+  def enable_modified_env(&callback)
+    EM.next_tick { VegaServer.enable_modified_env! }
     EM.next_tick(&callback)
   end
 
-  def disable_modified_event(&callback)
-    EM.next_tick { VegaServer.disable_modified_event! }
+  def disable_modified_env(&callback)
+    EM.next_tick { VegaServer.disable_modified_env! }
     EM.next_tick(&callback)
   end
 
@@ -42,15 +42,17 @@ VegaServer::SetupTeardownSteps = RSpec::EM.async_steps do
       end
     end
 
-    VegaServer.event_adapter.origin = origin if origin
+    VegaServer.env_adapter.origin = origin if origin
 
     ws = Faye::WebSocket::Client.new('ws://0.0.0.0:9292')
     instance_variable_set "@#{client}", ws
 
     ws.on(:open) { |e| resume.call(true) }
     ws.onclose = lambda do |e|
+      call_callback = instance_variable_get("@#{client}_open") == nil
       instance_variable_set "@#{client}_open", false
       ws = nil
+      callback.call if call_callback
     end
   end
 

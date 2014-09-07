@@ -1,2 +1,2 @@
-require 'vega_server/adapters/event'
-require 'vega_server/adapters/modified_event'
+require 'vega_server/adapters/env'
+require 'vega_server/adapters/modified_env'

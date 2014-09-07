@@ -1,5 +1,5 @@
 module VegaServer::Adapters
-  class ModifiedEvent < SimpleDelegator
+  class ModifiedEnv < SimpleDelegator
     class << self
       attr_accessor :origin
     end

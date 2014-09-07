@@ -4,10 +4,10 @@ describe 'handshake' do
   include VegaServer::HandshakeSteps
   let(:client) { 'client' }
 
-  before { enable_modified_event }
+  before { enable_modified_env }
 
   after do
-    disable_modified_event
+    disable_modified_env
     stop_server
   end
 
@@ -18,7 +18,6 @@ describe 'handshake' do
     before do
       configure_origins(allowed_origins)
       start_server
-      open_socket(client, origin)
     end
 
     after { reset_allowed_origins }
@@ -27,6 +26,7 @@ describe 'handshake' do
       let(:origin) { 'http://www.example.org' }
 
       it('leaves the connection open') do
+        open_socket(client, origin)
         assert_socket_open(client)
       end
     end
@@ -35,6 +35,7 @@ describe 'handshake' do
       let(:origin) { 'http://www.example.com' }
 
       it 'closes the connection' do
+        open_socket(client, origin)
         assert_socket_closed(client)
       end
     end

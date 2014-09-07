@@ -22,16 +22,16 @@ module VegaServer
     @storage ||= VegaServer::Storage::Memory
   end
 
-  def self.event_adapter
-    @event_adapter ||= VegaServer::Adapters::Event
+  def self.env_adapter
+    @env_adapter ||= VegaServer::Adapters::Env
   end
 
-  def self.enable_modified_event!
-    @event_adapter = VegaServer::Adapters::ModifiedEvent
+  def self.enable_modified_env!
+    @env_adapter = VegaServer::Adapters::ModifiedEnv
   end
 
-  def self.disable_modified_event!
-    @event_adapter = VegaServer::Adapters::Event
+  def self.disable_modified_env!
+    @env_adapter = VegaServer::Adapters::Env
   end
 
   def self.connection_pool
