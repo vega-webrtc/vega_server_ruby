@@ -130,8 +130,9 @@ a different token would return a 401 response.
 #### SSL
 
 You can achieve SSL security by using the `wss` scheme in the url
-you pass to Vega Prime. See the manual for the Ruby web server
-you're using for information on how to register your SSL cert and key.
+you pass to Vega Prime and configuring your web server properly.
+See the documentation for the Ruby web server you're using for
+information on how to register your SSL cert and key.
 
 ### Running with Ruby web servers (Puma, Thin, Passenger, etc.)
 
