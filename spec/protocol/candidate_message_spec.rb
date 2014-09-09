@@ -37,7 +37,7 @@ describe 'candidate message' do
 
   after { stop_server }
 
-  it 'relays the answer to the client with the peerId' do
+  it 'relays the candidate to the client with the peerId' do
     send_message(client_1, candidate_message)
     assert_response(client_2, response)
   end
