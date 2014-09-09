@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Dave Jachimiak"]
   spec.email         = ["dave.jachimiak@gmail.com"]
   spec.description   = %q{VegaServer is a drop-in WebRTC signaling server.}
+  spec.summary       = %q{VegaServer is a drop-in WebRTC signaling server.}
   spec.homepage      = "https://github.com/davejachimiak/vega_server"
   spec.license       = "MIT"
 
