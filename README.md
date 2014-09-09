@@ -153,7 +153,7 @@ run VegaServer::Server.new
 ```
 
 You should load adapters in this fashion if you want to use
-using a server that requires it. 
+a server that requires it. 
 
 ## To Do
 
