@@ -139,9 +139,9 @@ information on how to register your SSL cert and key.
 Vega Server can be served with any web server that is supported by
 [Faye Websocket](https://github.com/faye/faye-websocket-ruby).
 See Faye Websocket's documentation for instructions on how to
-use specific web servers with Faye Websocket. Faye Websocket requires
-adapters to be loaded for some web servers. For example, Faye Websocket
-requires an adapter to be loaded for the Thin web server.
+use specific web servers it. Specifically, it may require an
+adapter to be loaded. Faye Websocket
+requires an adapter to be loaded for the Thin web server, for example.
 
 ```ruby
 # example.ru
