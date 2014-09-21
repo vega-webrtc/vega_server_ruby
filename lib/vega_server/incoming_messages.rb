@@ -10,4 +10,6 @@ require 'vega_server/incoming_messages/hang_up'
 require 'vega_server/incoming_messages/factory'
 require 'vega_server/incoming_messages/candidate'
 
+require 'vega_server/incoming_messages/call_response'
+
 require 'vega_server/outgoing_messages'

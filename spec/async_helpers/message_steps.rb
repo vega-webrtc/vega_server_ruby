@@ -1,6 +1,24 @@
 VegaServer::MessageSteps = RSpec::EM.async_steps do
   include VegaServer::SetupTeardownSteps
 
+  def set_call_middlewares(middlewares, &callback)
+    EM.next_tick do
+      VegaServer.configure do |config|
+        config.set_call_middlewares(middlewares)
+      end
+    end
+
+    EM.next_tick(&callback)
+  end
+
+  def reset_call_middlewares &callback
+    EM.next_tick do
+      VegaServer.reset_call_middlewares!
+    end
+
+    EM.next_tick(&callback)
+  end
+
   def add_to_storage(client_id, client_info, &callback)
     EM.next_tick do
       storage = VegaServer.storage
