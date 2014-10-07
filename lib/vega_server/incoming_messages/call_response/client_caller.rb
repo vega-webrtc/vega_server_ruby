@@ -11,5 +11,9 @@ module VegaServer::IncomingMessages::CallResponse
     def room_id
       payload[:room_id]
     end
+
+    def badge
+      payload[:badge]
+    end
   end
 end

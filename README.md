@@ -124,7 +124,71 @@ the browser with a url of `ws://localhost:4500/?token=secret`, you'd get a
 successful, persistent connection. Requesting with a different token would
 return a 401 response.
 
-#### SSL
+##### Call Middleware
+
+Inject call middleware for even more security.
+
+###### Background
+
+The `call` message is part of Vega's protocol. Clients send a `call` message to
+the Vega Server to introduce itself to and get a list of the peers in
+the room.
+
+The payload for the `call` message must include a `roomId` and `badge`. The
+badge should be consistent across the applications that contact the Vega Server.
+
+`Call` messages should be answered with `callAccepted` or `callRejected` messages.
+`callAccepted` messages send peers back to the `call`ing client in its payload.
+`callRejected` messages send an error back to the `call`ing client in its
+payload.
+
+###### Injecting call middleware
+
+Inject call middlewares like so:
+
+```ruby
+VegaServer.configure do |config|
+  config.set_call_middlewares [MyCallMiddleware.new]
+end
+```
+
+###### Writing call middleware
+
+Middlewares must respond to call. The client caller is passed into call when a
+middleware is run. You can access the client's websocket, call payload, client
+id, and room id on the client caller.
+
+Middlewares must return a
+`VegaServer::IncomingMessages::CallResponse::Accept` object or a
+`VegaServer::IncomingMessages::CallResponse::Reject` object.
+
+Here's an example that rejects the client call if the user is not allowed in the
+room.
+
+```ruby
+class CheckUserBelongsInRoom
+  def call(client_caller)
+    if belongs_in_room?(client_caller.room_id, client_caller.badge[:user_id])
+      VegaServer::IncomingMessages::CallResponse::Accept.new(client_caller)
+    else
+      error =
+VegaServer::IncomingMessages::CallResponse::Error.new(client_caller.error, "User
+does not belong in room")
+      VegaServer::IncomingMessages::CallResponse::Reject.new(error)
+    end
+  end
+
+  private
+
+  def belongs_in_room?(room_id, user_id)
+    appointment = Appointment.where(room_id: room_id).first
+    return false unless appointment
+    appointment.user_ids.include?(user_id)
+  end
+end
+```
+
+##### SSL
 
 You can achieve SSL security by using the `wss` scheme in the url you pass to
 Vega Prime and configuring your web server properly.  See the documentation for
