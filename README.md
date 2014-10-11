@@ -126,37 +126,43 @@ return a 401 response.
 
 ##### Call Middleware
 
-Inject call middleware for even more security.
+Inject call middlewares for even more security. Injecting middlewares gives you
+access to the payload in the initial message sent from the client. The data in
+the payload will allow you to determine whether the client's call should be
+accepted or rejected.
 
 ###### Background
 
 The `call` message is part of Vega's protocol. Clients send a `call` message to
-the Vega Server to introduce itself to and get a list of the peers in
-the room.
+the Vega Server to get a list of the peers in the room. If the call is
+accepted, the client is then responsible for sending offers to its peers
+through the Vega Server.
 
 The payload for the `call` message must include a `roomId` and `badge`. The
-badge should be consistent across the applications that contact the Vega Server.
+badge should be consistent across the applications that contact the Vega
+Server. You can use data from the `badge` and the `roomId` to ask your internal
+or external services whether the caller is acceptable.
 
 `Call` messages should be answered with `callAccepted` or `callRejected` messages.
 `callAccepted` messages send peers back to the `call`ing client in its payload.
 `callRejected` messages send an error back to the `call`ing client in its
 payload.
 
-###### Injecting call middleware
+###### Setting call middleware
 
-Inject call middlewares like so:
+Set call middlewares like so:
 
 ```ruby
 VegaServer.configure do |config|
-  config.set_call_middlewares [MyCallMiddleware]
+  config.set_call_middlewares [CheckUserBelongsInRoom]
 end
 ```
 
 ###### Writing call middleware
 
-Middlewares must respond to call. The client caller is passed into call when a
-middleware is run. You can access the client's websocket, call payload, client
-id, and room id on the client caller.
+Middlewares must be initializable with the client caller and must respond to
+`#call`. You can access the client's websocket, call payload, badge, client id,
+and room id on the client caller.
 
 Middlewares must return a
 `VegaServer::IncomingMessages::CallResponse::Accept` object or a
@@ -164,8 +170,8 @@ Middlewares must return a
 client caller passed into middlewares provides access to those objects
 through `#accept_response` and `#reject_response`.
 
-Here's an example that rejects the client call if the user is not allowed in the
-room.
+Here's an example middleware that rejects the client's call if the user is not
+allowed in the room.
 
 ```ruby
 class CheckUserBelongsInRoom
