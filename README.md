@@ -148,7 +148,7 @@ Inject call middlewares like so:
 
 ```ruby
 VegaServer.configure do |config|
-  config.set_call_middlewares [MyCallMiddleware.new]
+  config.set_call_middlewares [MyCallMiddleware]
 end
 ```
 
@@ -186,9 +186,15 @@ class CheckUserBelongsInRoom
   attr_reader :client_caller
 
   def belongs_in_room?
-    appointment = Appointment.where(room_id: room_id).first
-    return false unless appointment
-    appointment.user_ids.include?(user_id)
+    if appointment
+      appointment.user_ids.include?(user_id)
+    else
+      false
+    end
+  end
+
+  def appointment
+    Appointment.where(room_id: room_id).first
   end
 
   def room_id
