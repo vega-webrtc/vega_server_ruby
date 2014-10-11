@@ -160,7 +160,9 @@ id, and room id on the client caller.
 
 Middlewares must return a
 `VegaServer::IncomingMessages::CallResponse::Accept` object or a
-`VegaServer::IncomingMessages::CallResponse::Reject` object.
+`VegaServer::IncomingMessages::CallResponse::Reject` object. The
+client caller passed into middlewares provides access to those objects
+through `#accept_response` and `#reject_response`.
 
 Here's an example that rejects the client call if the user is not allowed in the
 room.
