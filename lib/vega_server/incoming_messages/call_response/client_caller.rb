@@ -15,5 +15,14 @@ module VegaServer::IncomingMessages::CallResponse
     def badge
       payload[:badge]
     end
+
+    def accept_response
+      VegaServer::IncomingMessages::CallResponse::Accept.new(self)
+    end
+
+    def reject_response(error_message)
+      error = VegaServer::IncomingMessages::CallResponse::Error.new(websocket, error_message)
+      VegaServer::IncomingMessages::CallResponse::Reject.new(error)
+    end
   end
 end
