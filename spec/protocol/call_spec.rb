@@ -27,13 +27,12 @@ describe 'call message is received' do
 
   describe 'with call middleware' do
     class TestCallMiddleware
-      def call(client_caller)
-        error = VegaServer::IncomingMessages::CallResponse::Error.new(
-          client_caller.websocket,
-          'an error occurred'
-        )
+      def initialize(client_caller)
+        @client_caller = client_caller
+      end
 
-        VegaServer::IncomingMessages::CallResponse::Reject.new(error)
+      def call
+        @client_caller.reject_response('an error occurred')
       end
     end
 
@@ -43,7 +42,7 @@ describe 'call message is received' do
     end
 
     before do
-      set_call_middlewares([TestCallMiddleware.new])
+      set_call_middlewares([TestCallMiddleware])
       start_server
       open_socket(client)
       stub_client_id(client_id)

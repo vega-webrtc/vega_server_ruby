@@ -4,7 +4,7 @@ module VegaServer::IncomingMessages
   class CallMiddlewares
     include Enumerable
 
-    DEFAULT = [CheckRoomId.new].freeze
+    DEFAULT = [CheckRoomId].freeze
 
     def initialize(middlewares)
       @middlewares = middlewares
@@ -24,7 +24,7 @@ module VegaServer::IncomingMessages
       initial_response = initial_response(client_caller)
 
       inject(initial_response) do |acc, middleware|
-        acc.bind { |message| middleware.call(message) }
+        acc.bind { |client_caller| middleware.new(client_caller).call }
       end
     end
 
