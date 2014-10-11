@@ -169,12 +169,9 @@ room.
 class CheckUserBelongsInRoom
   def call(client_caller)
     if belongs_in_room?(client_caller.room_id, client_caller.badge[:user_id])
-      VegaServer::IncomingMessages::CallResponse::Accept.new(client_caller)
+      client_caller.accept_response
     else
-      error =
-VegaServer::IncomingMessages::CallResponse::Error.new(client_caller.error, "User
-does not belong in room")
-      VegaServer::IncomingMessages::CallResponse::Reject.new(error)
+      client_caller.reject_reponse("User does not belong in room")
     end
   end
 
