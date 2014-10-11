@@ -169,8 +169,12 @@ room.
 
 ```ruby
 class CheckUserBelongsInRoom
-  def call(client_caller)
-    if belongs_in_room?(client_caller.room_id, client_caller.badge[:user_id])
+  def initialize(client_caller)
+    @client_caller = client_caller
+  end
+
+  def call
+    if belongs_in_room?
       client_caller.accept_response
     else
       client_caller.reject_reponse("User does not belong in room")
@@ -179,10 +183,20 @@ class CheckUserBelongsInRoom
 
   private
 
-  def belongs_in_room?(room_id, user_id)
+  attr_reader :client_caller
+
+  def belongs_in_room?
     appointment = Appointment.where(room_id: room_id).first
     return false unless appointment
     appointment.user_ids.include?(user_id)
+  end
+
+  def room_id
+    client_caller.room_id
+  end
+
+  def user_id
+    client_caller.badge[:user_id]
   end
 end
 ```
