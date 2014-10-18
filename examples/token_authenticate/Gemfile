@@ -2,4 +2,4 @@ source 'https://rubygems.org'
 
 gem 'rack'
 gem 'puma'
-gem 'vega_server', git: 'git@github.com:davejachimiak/vega_server.git'
+gem 'vega_server', git: 'git@github.com:vega-webrtc/vega_server_ruby.git'
